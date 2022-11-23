@@ -2,22 +2,45 @@ package course
 
 import "fmt"
 
-type Course struct {
-	Name    string
-	Price   float64
-	IsFree  bool
-	UserIDs []uint
-	Classes map[uint]string
+type course struct {
+	name    string
+	price   float64
+	isFree  bool
+	userIDs []uint
+	classes map[uint]string
 }
 
-func (c *Course) ChangePrice(price float64) {
-	c.Price = price
+func (c *course) SetName(name string) { c.name = name }
+func (c *course) Name() string        { return c.name }
+
+func (c *course) SetPrice(price float64) { c.price = price }
+func (c *course) Price() float64         { return c.price }
+
+func (c *course) SetIsFree(isFree bool) { c.isFree = isFree }
+func (c *course) IsFree() bool          { return c.isFree }
+
+func (c *course) SetUserIDs(userIDs []uint) { c.userIDs = userIDs }
+func (c *course) UserIDs() []uint           { return c.userIDs }
+
+func (c *course) SetClasses(classes map[uint]string) { c.classes = classes }
+func (c *course) Classes() map[uint]string           { return c.classes }
+
+func New(name string, price float64, isfree bool) *course {
+	if price == 0 {
+		price = 30
+	}
+
+	return &course{
+		name:   name,
+		price:  price,
+		isFree: isfree,
+	}
 }
 
 // Crear Metodo, se declara fuera de la estructura
-func (c *Course) PrintClasses() {
+func (c *course) PrintClasses() {
 	text := "Las clases son: "
-	for _, class := range c.Classes {
+	for _, class := range c.classes {
 		text += class + ", "
 	}
 
